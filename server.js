@@ -36,16 +36,15 @@ app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-//PORT
-const connectDB = async () => {
+const connectDB = async()=>{
     try {
-      const conn = await mongoose.connect(process.env.MONGO_URI);
-      console.log(`MongoDB Connected: ${conn.connection.host}`);
+        await mongoose.connect(process.env.MONGO_URL)
+        console.log(`Connected to MongoDB database ${mongoose.connection.host}`.bgMagenta.white);
     } catch (error) {
-      console.log(error);
-      process.exit(1);
+        console.log(`MONGOconnect error ${error}`.bgRed.white);
     }
-  }
+}
+
 
 //listen
 connectDB().then(() => {
