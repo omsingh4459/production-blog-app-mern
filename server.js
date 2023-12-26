@@ -21,14 +21,14 @@ const app = express();
 const PORT = process.env.PORT || 8080
 //midllewares
 app.options('*',cors())
-const corsOptions ={
-    origin:'https://good-plum-meerkat-coat.cyclic.app', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
-}
+// const corsOptions ={
+//     origin:'https://good-plum-meerkat-coat.cyclic.app', 
+//     credentials:true,            //access-control-allow-credentials:true
+//     optionSuccessStatus:200
+// }
 
-app.use(cors(corsOptions));
-// app.use(cors())
+// app.use(cors(corsOptions));
+app.use(cors())
 app.use(express.json())//parse data to json formta sent by client
 app.use(morgan('dev')) //show url which will be hit by consolw
 
@@ -42,6 +42,12 @@ app.use(express.static(path.join(__dirname, "./client/build")));
 
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+    res.setHeader("Access-Control-Allow-Origin", "*")
+res.setHeader("Access-Control-Allow-Credentials", "true");
+res.setHeader("Access-Control-Max-Age", "1800");
+res.setHeader("Access-Control-Allow-Headers", "content-type");
+res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
+ });
 });
 
 const connectDB = async()=>{
