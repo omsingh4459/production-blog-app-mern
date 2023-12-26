@@ -4,9 +4,9 @@ const morgan = require('morgan')
 const colors = require('colors')
 const dotenv = require('dotenv')
 const path = require("path");
-const connectDB = require('./config/db')
+// const connectDB = require('./config/db')
 
-
+const mongoose = require('mongoose')
 //env config
 dotenv.config()
 
@@ -14,11 +14,11 @@ dotenv.config()
 const userRoutes = require('./routes/userRoutes')
 const blogRoutes = require('./routes/blogRoutes')
 //mongodb connection
-connectDB();
+// connectDB();
 
 //rest object
-const app = express()
-
+const app = express();
+const PORT = process.env.PORT || 8080
 //midllewares
 app.use(cors())
 app.use(express.json())//parse data to json formta sent by client
@@ -37,8 +37,19 @@ app.get("*", function (req, res) {
 });
 
 //PORT
-const PORT = process.env.PORT || 8080
+const connectDB = async () => {
+    try {
+      const conn = await mongoose.connect(process.env.MONGO_URI);
+      console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+      console.log(error);
+      process.exit(1);
+    }
+  }
+
 //listen
-app.listen(PORT, ()=>{
-    console.log(`Server running on ${process.env.DEV_MODE} port no. ${PORT}`.bgCyan.white);
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server running on ${process.env.DEV_MODE} port no. ${PORT}`.bgCyan.white);
+    })
 })
