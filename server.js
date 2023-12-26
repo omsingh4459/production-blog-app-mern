@@ -21,7 +21,7 @@ const app = express();
 const PORT = process.env.PORT || 8080
 //midllewares
 const corsOptions ={
-    origin:'https://good-plum-meerkat-coat.cyclic.app', 
+    origin:'http://localhost:8080', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
