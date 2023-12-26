@@ -20,12 +20,13 @@ const blogRoutes = require('./routes/blogRoutes')
 const app = express();
 const PORT = process.env.PORT || 8080
 //midllewares
+app.options('*',cors())
 const corsOptions ={
-    origin:'http://localhost:8080', 
+    origin:'https://good-plum-meerkat-coat.cyclic.app', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
-app.options('*',cors())
+
 app.use(cors(corsOptions));
 // app.use(cors())
 app.use(express.json())//parse data to json formta sent by client
