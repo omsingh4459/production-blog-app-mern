@@ -20,7 +20,13 @@ const blogRoutes = require('./routes/blogRoutes')
 const app = express();
 const PORT = process.env.PORT || 8080
 //midllewares
-app.use(cors())
+const corsOptions ={
+    origin:'http://localhost:3000', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
+// app.use(cors())
 app.use(express.json())//parse data to json formta sent by client
 app.use(morgan('dev')) //show url which will be hit by consolw
 
