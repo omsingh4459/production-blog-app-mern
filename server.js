@@ -52,6 +52,7 @@ app.options("*", (req, res) => {
     return res.status(204).send();
   } else {
     console.log("fail");
+  }
   });
 app.use((req, res, next) => {
   res.setHeader(
