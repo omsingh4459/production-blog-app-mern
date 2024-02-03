@@ -32,17 +32,17 @@ const connectDB = async()=>{
 
 
 app.use(express.json())//parse data to json formta sent by client
-app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "React app URL"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
+
 app.use(morgan('dev')) //show url which will be hit by consolw
-// app.use(cors({credentials: true}))
+// app.use(cors())
+const corsOptions = {
+  origin: 'https://good-plum-meerkat-coat.cyclic.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 //routes
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/blog', blogRoutes);
