@@ -42,7 +42,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(morgan('dev')) //show url which will be hit by consolw
-app.use(cors({credentials: true}))
+// app.use(cors({credentials: true}))
 //routes
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/blog', blogRoutes);
