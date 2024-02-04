@@ -31,9 +31,7 @@ const connectDB = async()=>{
 }
 
 
-app.use(express.json())//parse data to json formta sent by client
 
-app.use(morgan('dev')) //show url which will be hit by consolw
 // app.use(cors())
 const corsOptions = {
   origin: 'https://good-plum-meerkat-coat.cyclic.app',
@@ -43,6 +41,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.json())//parse data to json formta sent by client
+
+app.use(morgan('dev')) //show url which will be hit by consolw
 //routes
 app.use('/api/v1/user', cors(corsOptions)); 
 app.use('/api/v1/user', userRoutes);
@@ -51,7 +52,7 @@ app.use('/api/v1/blog', blogRoutes);
 
 
 //static files
-app.use(express.static(path.join(__dirname, "./client/build")));
+app.use(express.static(path.join(__dirname, "./client")));
 
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
